@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tasks · Todo List</title>
+    <meta name="description" content="A clean, fast todo list built with Spring Boot."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+    <div class="app-backdrop" aria-hidden="true"></div>
+
+    <main class="app">
+        <header class="app__header">
+            <div class="brand">
+                <div class="brand__mark" aria-hidden="true">✓</div>
+                <div>
+                    <h1 class="brand__title">My Tasks</h1>
+                    <p class="brand__subtitle" id="dateLabel"></p>
+                </div>
+            </div>
+            <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+                <span class="icon-btn__sun">☀</span>
+                <span class="icon-btn__moon">☾</span>
+            </button>
+        </header>
+
+        <section class="stats" aria-label="Task summary">
+            <div class="stat">
+                <span class="stat__value" id="statTotal">0</span>
+                <span class="stat__label">Total</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value" id="statActive">0</span>
+                <span class="stat__label">Active</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value" id="statDone">0</span>
+                <span class="stat__label">Done</span>
+            </div>
+            <div class="stat stat--progress">
+                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+                    <div class="progress__fill" id="progressFill"></div>
+                </div>
+                <span class="stat__label"><span id="statPercent">0</span>% complete</span>
+            </div>
+        </section>
+
+        <form class="composer" id="todoForm" autocomplete="off">
+            <input
+                class="composer__input"
+                id="titleInput"
+                type="text"
+                name="title"
+                placeholder="What needs to be done?"
+                maxlength="200"
+                aria-label="Task title"
+                required/>
+            <select class="composer__priority" id="priorityInput" aria-label="Priority">
+                <option value="LOW">Low</option>
+                <option value="MEDIUM" selected>Medium</option>
+                <option value="HIGH">High</option>
+            </select>
+            <button class="btn btn--primary" type="submit">Add</button>
+        </form>
+
+        <div class="toolbar">
+            <div class="filters" role="tablist" aria-label="Filter tasks">
+                <button class="filter is-active" data-filter="all" role="tab" type="button">All</button>
+                <button class="filter" data-filter="active" role="tab" type="button">Active</button>
+                <button class="filter" data-filter="completed" role="tab" type="button">Completed</button>
+            </div>
+            <button class="btn btn--ghost" id="clearCompleted" type="button">Clear completed</button>
+        </div>
+
+        <ul class="todo-list" id="todoList" aria-live="polite"></ul>
+
+        <div class="empty" id="emptyState" hidden>
+            <div class="empty__art" aria-hidden="true">🗒️</div>
+            <p class="empty__title">Nothing here yet</p>
+            <p class="empty__text">Add your first task above to get started.</p>
+        </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <template id="todoItemTemplate">
+        <li class="todo" data-id="">
+            <label class="todo__check">
+                <input type="checkbox" class="todo__checkbox"/>
+                <span class="todo__checkmark" aria-hidden="true"></span>
+            </label>
+            <div class="todo__body">
+                <span class="todo__title"></span>
+                <span class="todo__meta">
+                    <span class="badge"></span>
+                    <span class="todo__time"></span>
+                </span>
+            </div>
+            <div class="todo__actions">
+                <button class="icon-action todo__edit" type="button" aria-label="Edit task" title="Edit">✎</button>
+                <button class="icon-action todo__delete" type="button" aria-label="Delete task" title="Delete">🗑</button>
+            </div>
+        </li>
+    </template>
+
+    <script src="js/app.js" defer></script>
+</body>
+</html>
